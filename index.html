@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Salesforce Data Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand"><span class="cloud">☁</span><span>salesforce</span></div>
+      <div class="topbar-copy">
+        <p>Salesforce</p>
+        <h1>Data dashboard</h1>
+      </div>
+      <div class="topbar-actions">
+        <span id="syncStatus" class="sync-status">Not connected</span>
+        <button id="refreshButton" class="icon-button" type="button" title="Refresh data" aria-label="Refresh data">↻</button>
+        <button id="logoutButton" class="ghost-button" type="button">Lock</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <p class="eyebrow">LIVE SUPABASE DATA</p>
+          <h2>Visitor activity, made easy to understand.</h2>
+          <p class="hero-copy">Review registrations, page journeys, workshop requests and emailed case studies from one read-only dashboard.</p>
+        </div>
+        <div class="hero-badge"><span id="totalRecords">0</span><small>Total records</small></div>
+      </section>
+
+      <section id="metricGrid" class="metric-grid" aria-label="Summary"></section>
+
+      <section class="workspace">
+        <div class="toolbar">
+          <div class="tabs" role="tablist">
+            <button class="tab active" data-tab="registrations" type="button">Registration DB <span id="registrationCount">0</span></button>
+            <button class="tab" data-tab="workshops" type="button">Workshop DB <span id="workshopCount">0</span></button>
+            <button class="tab" data-tab="emails" type="button">Mail DB <span id="mailCount">0</span></button>
+          </div>
+          <div class="toolbar-tools">
+            <label class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="Search records"></label>
+            <select id="statusFilter" aria-label="Filter registrations by status">
+              <option value="all">All statuses</option>
+              <option value="completed">Completed</option>
+              <option value="active">Active</option>
+              <option value="idle">Idle</option>
+            </select>
+            <button id="exportButton" class="primary-button" type="button">Export CSV</button>
+          </div>
+        </div>
+        <div id="tableWrap" class="table-wrap"></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="loginScreen" class="login-screen">
+    <form id="loginForm" class="login-card">
+      <div class="login-mark">☁</div>
+      <p class="eyebrow">SALESFORCE</p>
+      <h2>Open data dashboard</h2>
+      <p>Enter the staff PIN to retrieve the latest Supabase data.</p>
+      <label for="pinInput">Staff PIN</label>
+      <input id="pinInput" name="pin" type="password" inputmode="numeric" autocomplete="current-password" maxlength="20" required placeholder="Enter PIN">
+      <button id="loginButton" class="primary-button full" type="submit">Open dashboard</button>
+      <p id="loginError" class="form-error" role="alert"></p>
+    </form>
+  </div>
+
+  <div id="drawerBackdrop" class="drawer-backdrop" hidden></div>
+  <aside id="detailDrawer" class="drawer" aria-label="Visitor details" aria-hidden="true">
+    <div class="drawer-head">
+      <div><p class="eyebrow">VISITOR DETAILS</p><h2 id="drawerTitle">Visitor journey</h2></div>
+      <button id="closeDrawer" class="icon-button" type="button" aria-label="Close details">×</button>
+    </div>
+    <div id="drawerContent" class="drawer-content"></div>
+  </aside>
+
+  <script src="app.js"></script>
+</body>
+</html>
